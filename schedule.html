@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>مواعيد Make Future</title>
+  <meta name="description" content="مواعيد مجموعات Make Future لصفوف الثانوية (Math & English)."/>
+  <link rel="stylesheet" href="assets/style.css"/>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <div class="brand"><div class="logo"></div><span>Make Future</span></div>
+    <div class="links">
+      <a data-nav href="index.html">الرئيسية</a>
+      <a data-nav href="about.html">عنّا</a>
+      <a data-nav href="schedule.html">المواعيد</a>
+      <a data-nav href="register.html">طلب تسجيل</a>
+      <a data-nav href="contact.html">تواصل</a>
+    </div>
+    <button id="burger" class="burger" aria-label="فتح القائمة" aria-expanded="false">≡</button>
+  </div>
+  <div id="mobileMenu" class="container mobile">
+    <a data-nav href="index.html">الرئيسية</a>
+    <a data-nav href="about.html">عنّا</a>
+    <a data-nav href="schedule.html">المواعيد</a>
+    <a data-nav href="register.html">طلب تسجيل</a>
+    <a data-nav href="contact.html">تواصل</a>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="container">
+    <div class="panel" style="padding:22px">
+      <h1 style="margin:0 0 6px">المواعيد</h1>
+      <p class="muted" style="margin:0">
+        دي مواعيد مبدئية — التسجيل <b>طلب</b> ويتم تأكيد المجموعة عبر الاتصال/واتساب.
+      </p>
+
+      <div class="hr"></div>
+
+      <div class="grid2">
+        <div class="field">
+          <label class="small">اختر الصف</label>
+          <select id="fGrade">
+            <option value="all">الكل</option>
+            <option>1 ثانوي</option>
+            <option>2 ثانوي</option>
+            <option>3 ثانوي</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="small">اختر المادة</label>
+          <select id="fSubject">
+            <option value="all">الكل</option>
+            <option>Math</option>
+            <option>English</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>الصف</th>
+            <th>المادة</th>
+            <th>اليوم</th>
+            <th>الوقت</th>
+            <th>المجموعة</th>
+            <th>تسجيل</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+
+      <div style="margin-top:14px" class="small">
+        لو تحب أظبطلك المواعيد الحقيقية، عدّل ملف <b>assets/schedule-data.js</b>.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="floating">
+  <a class="fab whatsapp" href="https://wa.me/201006693681" target="_blank" aria-label="واتساب">✆</a>
+  <a class="fab call" href="tel:01006693681" aria-label="اتصال">📞</a>
+</div>
+
+<script src="assets/schedule-data.js"></script>
+<script src="assets/app.js"></script>
+<script>
+  const rows = document.getElementById("rows");
+  const fGrade = document.getElementById("fGrade");
+  const fSubject = document.getElementById("fSubject");
+
+  function render(){
+    const g = fGrade.value;
+    const s = fSubject.value;
+
+    const data = (window.MF_SCHEDULE || []).filter(item=>{
+      const okG = (g === "all") || item.grade === g;
+      const okS = (s === "all") || item.subject === s;
+      return okG && okS;
+    });
+
+    rows.innerHTML = data.map(item=>{
+      const waMsg =
+`السلام عليكم،
+عايز أسجل في Make Future
+الصف: ${item.grade}
+المادة: ${item.subject}
+المجموعة: ${item.group}
+الموعد: ${item.day} - ${item.time}`;
+      const wa = "https://wa.me/201006693681?text=" + encodeURIComponent(waMsg);
+
+      return `
+        <tr>
+          <td>${item.grade}</td>
+          <td>${item.subject}</td>
+          <td>${item.day}</td>
+          <td>${item.time}</td>
+          <td>${item.group}</td>
+          <td><a class="btn primary" style="padding:8px 10px" target="_blank" href="${wa}">واتساب</a></td>
+        </tr>
+      `;
+    }).join("");
+
+    if(!data.length){
+      rows.innerHTML = `<tr><td colspan="6" class="muted">لا يوجد نتائج للفلترة الحالية.</td></tr>`;
+    }
+  }
+
+  fGrade.addEventListener("change", render);
+  fSubject.addEventListener("change", render);
+  render();
+</script>
+</body>
+</html>
