@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>طلب تسجيل | Make Future</title>
+  <meta name="description" content="طلب تسجيل مبدئي في Make Future — سيتم التواصل لتأكيد المجموعة."/>
+  <link rel="stylesheet" href="assets/style.css"/>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <div class="brand"><div class="logo"></div><span>Make Future</span></div>
+    <div class="links">
+      <a data-nav href="index.html">الرئيسية</a>
+      <a data-nav href="about.html">عنّا</a>
+      <a data-nav href="schedule.html">المواعيد</a>
+      <a data-nav href="register.html">طلب تسجيل</a>
+      <a data-nav href="contact.html">تواصل</a>
+    </div>
+    <button id="burger" class="burger" aria-label="فتح القائمة" aria-expanded="false">≡</button>
+  </div>
+  <div id="mobileMenu" class="container mobile">
+    <a data-nav href="index.html">الرئيسية</a>
+    <a data-nav href="about.html">عنّا</a>
+    <a data-nav href="schedule.html">المواعيد</a>
+    <a data-nav href="register.html">طلب تسجيل</a>
+    <a data-nav href="contact.html">تواصل</a>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="container">
+    <div class="panel" style="padding:22px">
+      <h1 style="margin:0 0 6px">طلب تسجيل</h1>
+      <p class="muted" style="margin:0">
+        التسجيل <b>طلب مبدئي</b> — بعد الإرسال هيفتح واتساب برسالة جاهزة، وفريق Make Future هيتواصل لتأكيد المجموعة.
+      </p>
+
+      <div class="hr"></div>
+
+      <form id="registerForm" class="form">
+        <div class="field">
+          <label class="small">اسم الطالب *</label>
+          <input name="name" required placeholder="اكتب اسم الطالب" />
+        </div>
+
+        <div class="field">
+          <label class="small">رقم ولي الأمر *</label>
+          <input name="parent" type="tel" required placeholder="مثال: 01xxxxxxxxx" />
+        </div>
+
+        <div class="grid2">
+          <div class="field">
+            <label class="small">الصف *</label>
+            <select name="grade" required>
+              <option value="">اختر الصف</option>
+              <option>1 ثانوي</option>
+              <option>2 ثانوي</option>
+              <option>3 ثانوي</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label class="small">المادة *</label>
+            <select name="subject" required>
+              <option value="">اختر المادة</option>
+              <option>Math</option>
+              <option>English</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="small">ملاحظات (اختياري)</label>
+          <textarea name="notes" placeholder="مثال: عايز مجموعة مساء / محتاج تأسيس..."></textarea>
+        </div>
+
+        <button class="btn primary block" type="submit">إرسال الطلب</button>
+        <div id="successMsg" class="success">✅ تم استلام طلبك — جاري فتح واتساب برسالة جاهزة.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="floating">
+  <a class="fab whatsapp" href="https://wa.me/201006693681" target="_blank" aria-label="واتساب">✆</a>
+  <a class="fab call" href="tel:01006693681" aria-label="اتصال">📞</a>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
