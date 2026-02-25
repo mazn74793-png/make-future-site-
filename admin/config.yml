@@ -1,0 +1,41 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "schedule"
+    label: "المواعيد"
+    files:
+      - file: "data/schedule.json"
+        label: "جدول المواعيد"
+        name: "schedule"
+        format: "json"
+        fields:
+          - label: "المواعيد"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "الصف", name: "grade", widget: "string" }
+              - { label: "المادة", name: "subject", widget: "string" }
+              - { label: "اليوم", name: "day", widget: "string" }
+              - { label: "الوقت", name: "time", widget: "string" }
+              - { label: "المجموعة", name: "group", widget: "string" }
+
+  - name: "teachers"
+    label: "المدرسين"
+    files:
+      - file: "data/teachers.json"
+        label: "قائمة المدرسين"
+        name: "teachers"
+        format: "json"
+        fields:
+          - label: "المدرسين"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "الاسم", name: "name", widget: "string" }
+              - { label: "المادة", name: "subject", widget: "string" }
+              - { label: "نبذة", name: "bio", widget: "text" }
