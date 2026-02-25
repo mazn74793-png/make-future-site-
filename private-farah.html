@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Private Farah – Admin</title>
+  <link rel="stylesheet" href="assets/style.css"/>
+  <style>
+    .gate{min-height:100vh;display:flex;align-items:center;justify-content:center}
+    .gate .card{max-width:420px;width:100%}
+    .hidden{display:none}
+  </style>
+</head>
+<body>
+
+<div id="gate" class="gate">
+  <div class="card">
+    <h2 style="margin:0 0 8px">Private Farah</h2>
+    <p class="small" style="margin:0 0 12px">ادخلي الباسورد لفتح لوحة التحكم</p>
+    <input id="pwd" type="password" placeholder="Password" />
+    <button class="btn primary block" onclick="unlock()">دخول</button>
+    <div id="err" class="small" style="color:#ffb4b4;margin-top:8px;display:none">باسورد غلط</div>
+  </div>
+</div>
+
+<div id="panel" class="hidden">
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand"><div class="logo"></div><span>Private Farah</span></div>
+      <div class="links">
+        <a href="index.html">الموقع</a>
+        <a href="#" onclick="lock()">قفل</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="container">
+      <div class="panel" style="padding:22px">
+        <h1 style="margin:0 0 6px">لوحة تحكم مبسّطة</h1>
+        <p class="muted" style="margin:0 0 14px">
+          من هنا تقدري تفتحي أماكن التعديل السهلة.
+        </p>
+
+        <div class="grid2">
+          <div class="card">
+            <b>تعديل المواعيد</b>
+            <p class="small">يفتح جدول Google Sheets لتعديل المواعيد.</p>
+            <a id="sheetSchedule" class="btn primary" target="_blank">فتح شيت المواعيد</a>
+          </div>
+
+          <div class="card">
+            <b>تعديل المدرسين</b>
+            <p class="small">يفتح جدول Google Sheets لتعديل المدرسين.</p>
+            <a id="sheetTeachers" class="btn primary" target="_blank">فتح شيت المدرسين</a>
+          </div>
+
+          <div class="card">
+            <b>رفع صور</b>
+            <p class="small">يفتح فولدر Google Drive لرفع الصور ونسخ الروابط.</p>
+            <a id="driveFolder" class="btn ghost" target="_blank">فتح فولدر الصور</a>
+          </div>
+
+          <div class="card">
+            <b>تعليمات سريعة</b>
+            <ul class="small">
+              <li>ضيفي صف جديد في الشيت = موعد جديد</li>
+              <li>عدّلي أي خلية لتغيير الوقت/المدرس</li>
+              <li>الصور: ارفعي على Drive وخدي الرابط وحطيه في الشيت</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  const PASS = "Farah1221"; // غيّره لو حبيتي
+  const SCHEDULE_SHEET_URL = "PASTE_SCHEDULE_SHEET_LINK_HERE";
+  const TEACHERS_SHEET_URL = "PASTE_TEACHERS_SHEET_LINK_HERE";
+  const DRIVE_FOLDER_URL = "PASTE_DRIVE_FOLDER_LINK_HERE";
+
+  function unlock(){
+    const v = document.getElementById("pwd").value;
+    if(v === PASS){
+      localStorage.setItem("pf_ok", "1");
+      document.getElementById("gate").classList.add("hidden");
+      document.getElementById("panel").classList.remove("hidden");
+      bindLinks();
+    }else{
+      document.getElementById("err").style.display = "block";
+    }
+  }
+  function lock(){
+    localStorage.removeItem("pf_ok");
+    location.reload();
+  }
+  function bindLinks(){
+    document.getElementById("sheetSchedule").href = SCHEDULE_SHEET_URL;
+    document.getElementById("sheetTeachers").href = TEACHERS_SHEET_URL;
+    document.getElementById("driveFolder").href = DRIVE_FOLDER_URL;
+  }
+  // فتح تلقائي لو كانت فاتحة قبل كده على نفس الجهاز
+  if(localStorage.getItem("pf_ok") === "1"){
+    document.getElementById("gate").classList.add("hidden");
+    document.getElementById("panel").classList.remove("hidden");
+    bindLinks();
+  }
+</script>
+
+</body>
+</html>
