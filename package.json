@@ -1,0 +1,7 @@
+{
+  "name": "make-future-site",
+  "private": true,
+  "dependencies": {
+    "@netlify/neon": "^1.0.0"
+  }
+}
